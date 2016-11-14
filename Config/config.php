@@ -1,0 +1,57 @@
+<?php 
+//接收调试的时候模拟的微信数据库发送过来的数据
+$receiveDebugXML= <<<XML
+	<xml>
+	    <ToUserName>
+	        <![CDATA[gh_2e4de5718eb3]]>
+	    </ToUserName>
+	    <FromUserName>
+	        <![CDATA[ooFtDs9fZTcovsor8opSQv7QqofQ]]>
+	    </FromUserName>
+	    <CreateTime>1455871183</CreateTime>
+	    <MsgType>
+	        <![CDATA[text]]>
+	    </MsgType>
+	    <Content>
+	        <![CDATA[阿什顿飞]]>
+	    </Content>
+	    <MsgId>6252919118575393934</MsgId>
+	    <Encrypt>
+	        <![CDATA[UGCnWCzs6S7+l2EM6bMFCEpYXy8UtDWE8zBPVmiDasDCF1QPyDN/x4wO7wsn1coQ0h6sX9WYokW31AR5RCgYywKvrz7RXFgjPrI7rC6YneKMQFB8yiHxe7vhzLRxf8IeOb10D2Dc1KcEJJLExZGoD01tpFg2GNVCNyTBcxnRBenAdLzVi7HW6mciWvWHilLMcunX1T8LmyGxkgJ4x+SDnoYI4uR54UqGv6/wt0MRE/yQCvF9P9hfesgqDMiO38MZmRaIrFm9zT4+kCMULN/l/qtlDs8D1bnPe4CAkX7oLoBB8raLXjTEiA0Kg8N/B8ApqyvkKrYcMiJjorV7GgvaFn0PqXzUQnsxmwOeGbD92yIEDiZ7dJuwhl84S2Ydp0uJx4f56u8MAQ4cY+TCw4wepGX65II1dHV0vumzCk6eEGZMOHj96GnVP8DjP3lP3jKPp2GrZO1DxttnItzoQeLvPg==]]>
+	    </Encrypt>
+	</xml>
+XML;
+ return array(
+ 	"appID"=>"",
+ 	"appsecret"=>"",
+ 	"EncodingAESKey"=>"",
+ 	"token"=>"",
+ 	"access_token_savefile"=>"access_token.txt",
+ 	"jsapi_ticket_savefile"=>"./Storage/jsapi_ticket.txt",
+ 	"ext"=>".php",
+ 	"encrypt"=>1,//0 明文模式  1 兼容模式 或 加密模式
+ 	//是否进行微信服务器发送的调试
+ 	"receiveDebug"=>false,
+ 	//模拟发送过来的数据
+ 	"receiveDebugXML"=>$receiveDebugXML,
+ 	//handle列表执行的顺序
+ 	"handleLinkList"=>array(
+ 			"WeiChatLib\TextMegHandle",
+ 			"WeiChatLib\ImageMegHandle", 
+ 			"WeiChatLib\MusicMegHandle",
+ 			"WeiChatLib\NewsMegHandle",
+ 			"WeiChatLib\ShortvideoMegHandle",
+ 			"WeiChatLib\VideoMegHandle",
+ 			"WeiChatLib\VoiceMegHandle",
+ 			"WeiChatLib\EventHandle",//事件要放在最后
+ 		),
+ 	//事件子链条
+ 	"eventHandleLinkList"=>array(
+ 			"WeiChatLib\ClickEventMegHandle",
+ 			"WeiChatLib\LocationEventMegHandle",
+ 			"WeiChatLib\SubscribeEventMegHandle",
+ 			"WeiChatLib\UnsubscribeEventMegHandle",
+ 			"WeiChatLib\ViewEventMegHandle",
+ 			"WeiChatLib\TemplateSendJobFinishEventMegHandle",
+ 		),
+  );
